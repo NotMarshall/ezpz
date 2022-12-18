@@ -1,14 +1,60 @@
 <html>
 <head>
-----
+  <style>
+    #stopwatch {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
 </head>
-<title> websuit </title>
-  <br>
-<body bgcolor = "black">
-<font color ="white"> yeah just this for now, hit ctrl+A</font>
-  <br>
-  not for long 
-  <br>
-  <img src="https://i.imgflip.com/1gpswl.jpg" alt="kids">
+<body>
+  <div id="stopwatch">00:00:00</div>
+  <button onclick="startStopwatch()">Start</button>
+  <button onclick="stopStopwatch()">Stop</button>
+  <button onclick="resetStopwatch()">Reset</button>
+  <script>
+    let interval;
+    let minutes = 0;
+    let seconds = 0;
+    let milliseconds = 0;
+
+    function startStopwatch() {
+      interval = setInterval(() => {
+        milliseconds++;
+        if (milliseconds === 100) {
+          seconds++;
+          milliseconds = 0;
+        }
+        if (seconds === 60) {
+          minutes++;
+          seconds = 0;
+        }
+        updateStopwatch();
+      }, 10);
+    }
+
+    function stopStopwatch() {
+      clearInterval(interval);
+    }
+
+    function resetStopwatch() {
+      stopStopwatch();
+      minutes = 0;
+      seconds = 0;
+      milliseconds = 0;
+      updateStopwatch();
+    }
+
+    function updateStopwatch() {
+      let stopwatch = document.getElementById("stopwatch");
+      stopwatch.innerHTML =
+        (minutes < 10 ? "0" + minutes : minutes) +
+        ":" +
+        (seconds < 10 ? "0" + seconds : seconds) +
+        ":" +
+        (milliseconds < 10 ? "0" + milliseconds : milliseconds);
+    }
+  </script>
 </body>
 </html>
